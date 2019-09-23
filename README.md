@@ -1,6 +1,6 @@
-# BLOCK.one Web Application Developer Interview code Test
-
 <img src="https://block.one/wp-content/uploads/2018/04/logo-1.png" style="width: 280px; height: 110px"/>
+
+# BLOCK.one Web Application Developer Interview code Test
 
 ## Vue Web Application to pull the most recent blocks
 
