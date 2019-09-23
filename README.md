@@ -39,7 +39,7 @@ npm install
 npm run serve
 
 # run unit tests
-npm test
+npm run test:unit
 ```
 
 ## App is running on localhost:8080
