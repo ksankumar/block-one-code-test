@@ -88,8 +88,8 @@
 
     export default {
         name: 'App',
-        data: () => ({
-            recordLength: 10,
+        data: (vm) => ({
+            recordLength: vm.$store.getters['Blocks/RecordLength'],
             showSnackBar: false
         }),
         components: {
@@ -116,7 +116,6 @@
         },
         created () {
             this.getBlocks()
-            this.recordLength = this.$store.getters['Blocks/RecordLength']
         },
         methods: {
             isError (error) {
