@@ -73,6 +73,13 @@
         </v-alert>
       </v-flex>
     </v-layout>
+    <v-snackbar multi-line v-model="showSnackBar">
+      <v-icon left color="green">mdi-file-document-box-check-outline</v-icon>
+      {{ recordLength }} most recent Blocks has been updated.
+      <v-btn color="blue" text @click="showSnackBar = false">
+        Close
+      </v-btn>
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -82,7 +89,8 @@
     export default {
         name: 'App',
         data: () => ({
-            recordLength: 10
+            recordLength: 10,
+            showSnackBar: false
         }),
         components: {
             Blocks
@@ -95,7 +103,9 @@
                 return this.count / this.recordLength * 100
             },
             count () {
-                return this.$store.getters['Blocks/Count']
+                const count = this.$store.getters['Blocks/Count']
+                this.showMessage(count)
+                return count
             },
             onError () {
                 return this.$store.getters['Blocks/Error'] !== null
@@ -117,6 +127,9 @@
             },
             getBlocks () {
                 this.$store.dispatch('Blocks/List')
+            },
+            showMessage (count) {
+                this.showSnackBar = !!(count > 0 && count === this.recordLength)
             }
         }
     }
