@@ -5,7 +5,7 @@
         <v-expansion-panels focusable>
           <v-expansion-panel v-for="(item, i) in blockList" :key="i">
             <v-expansion-panel-header class="py-0">
-              <v-avatar color="blue-grey">
+              <v-avatar color="indigo">
                 <span class="white--text headline">{{i+1}}</span>
               </v-avatar>
               <v-list-item-content class="ml-3">
@@ -13,8 +13,8 @@
                 </v-list-item-title>
                 <v-list-item-subtitle class="my-2"><b>Timestamp:</b> {{item.timestamp}}</v-list-item-subtitle>
                 <v-list-item-subtitle>
-                  <v-chip color="blue-grey lighten-4">
-                    <v-avatar left class="blue-grey lighten-2 white--text">
+                  <v-chip color="blue lighten-4">
+                    <v-avatar left class="blue lighten-2 white--text">
                       {{item.transactions.length||0}}
                     </v-avatar>
                     Actions

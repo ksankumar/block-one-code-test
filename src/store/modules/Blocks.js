@@ -8,6 +8,7 @@ export default {
   state: {
     loading: true,
     count: 0,
+    length: 10,
     blocks: [],
     error: null
   },
@@ -21,6 +22,9 @@ export default {
     Count (state, count) {
       state.count = count
     },
+    RecordLength (state, length) {
+      state.length = length
+    },
     Error (state, error) {
       state.error = error
     },
@@ -31,12 +35,13 @@ export default {
     }
   },
   actions: {
-    async List ({ commit }) {
+    async List ({ commit, state }) {
       commit('Reset')
       try {
         let blocks = []
         let count = 0
-        await recentTenBlocks(res => {
+        const length = state.length
+        await recentTenBlocks(length, (res) => {
           blocks.push(res)
           count = count + 1
           commit('Count', count)
@@ -53,6 +58,7 @@ export default {
   getters: {
     Loading: state => state.loading,
     List: state => state.blocks,
+    RecordLength: state => state.length,
     Count: state => state.count,
     Error: state => state.error
   }

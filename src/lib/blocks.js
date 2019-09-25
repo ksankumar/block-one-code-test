@@ -30,9 +30,8 @@ async function getBlockInfo (blockId) {
   }
 }
 
-export default async function recentTenBlocks (cb) {
-  let num = 10
-  while (num--) {
+export default async function recentTenBlocks (length, cb) {
+  while (length--) {
     await delay(async () => {
       let blkId = await getBlockId()
       const block = await getBlockInfo(blkId)

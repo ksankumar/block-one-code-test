@@ -1,6 +1,8 @@
 {
   "name": "block-one-code-test",
   "version": "0.1.0",
+  "author": "Santhosh Kumar, Krishnan",
+  "description": "BLOCK.one Web Application Developer Interview code Test",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",

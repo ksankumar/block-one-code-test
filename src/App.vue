@@ -8,6 +8,16 @@
         <span class="font-weight-light" v-if="$vuetify.breakpoint.mdAndUp">Block.one</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-col class="d-flex" cols="4" sm="2">
+        <v-select
+          :items="[5, 10, 15, 20, 25, 30]"
+          v-model="recordLength"
+          @change="setRecordLength"
+          label="Blocks count"
+          solo
+          hide-details
+        ></v-select>
+      </v-col>
       <v-btn
         :disabled="loading"
         color="pink"
@@ -15,7 +25,7 @@
         <v-progress-circular
           v-if="loading"
           indeterminate
-          :value="count*10"
+          :value="count*setRecordLength"
           color="pink">
           {{ count}}
         </v-progress-circular>
@@ -27,8 +37,8 @@
       <v-progress-linear
         v-if="loading"
         color="pink darken-3"
-        :buffer-value="count*10"
-        :value="count*10"
+        :buffer-value="progress"
+        :value="progress"
         height="10"
         absolute
         striped
@@ -36,7 +46,7 @@
         reactive
         stream>
         <template v-slot="{ value }">
-          <b class="overline text-lowercase black--text">{{10-count}} more blocks left</b>
+          <b class="overline text-lowercase black--text">{{recordLength-count}} more blocks left</b>
         </template>
       </v-progress-linear>
     </v-app-bar>
@@ -71,12 +81,18 @@
 
     export default {
         name: 'App',
+        data: () => ({
+            recordLength: 10
+        }),
         components: {
             Blocks
         },
         computed: {
             loading () {
                 return this.$store.getters['Blocks/Loading']
+            },
+            progress () {
+                return this.count / this.recordLength * 100
             },
             count () {
                 return this.$store.getters['Blocks/Count']
@@ -90,10 +106,14 @@
         },
         created () {
             this.getBlocks()
+            this.recordLength = this.$store.getters['Blocks/RecordLength']
         },
         methods: {
             isError (error) {
                 return error !== null
+            },
+            setRecordLength () {
+                this.$store.commit('Blocks/RecordLength', this.recordLength)
             },
             getBlocks () {
                 this.$store.dispatch('Blocks/List')
